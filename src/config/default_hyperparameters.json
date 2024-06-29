@@ -1,0 +1,7 @@
+{
+  "encode_len": 6,
+  "boosting_type":  "gbdt",
+  "n_estimators":  250,
+  "num_leaves":  31,
+  "learning_rate":  1e-1
+}
