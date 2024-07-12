@@ -68,12 +68,14 @@ class TimeStepClassifier:
 
     def build_model(self) -> LGBMClassifier:
         """Build a new LightGBM Classifier."""
+        num_classes = len(self.data_schema.target_classes)
+        num_classes = num_classes if num_classes > 2 else 1
         model = LGBMClassifier(
             boosting_type=self.boosting_type,
             n_estimators=self.n_estimators,
             num_leaves=self.num_leaves,
             learning_rate=self.learning_rate,
-            num_class=len(self.data_schema.target_classes),
+            num_class=num_classes,
             n_jobs=n_jobs,
             **self.kwargs,
         )
@@ -244,7 +246,9 @@ def load_predictor_model(predictor_dir_path: str) -> TimeStepClassifier:
     return TimeStepClassifier.load(predictor_dir_path)
 
 
-def evaluate_predictor_model(model: TimeStepClassifier, test_split: np.ndarray) -> float:
+def evaluate_predictor_model(
+    model: TimeStepClassifier, test_split: np.ndarray
+) -> float:
     """
     Evaluate the TimeStepClassifier model and return the r-squared value.
 
