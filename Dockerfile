@@ -4,6 +4,7 @@ FROM python:3.9.17-slim-bullseye as builder
 RUN apt-get -y update && apt-get install -y --no-install-recommends \
          ca-certificates \
          dos2unix \
+         libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 # copy requirements file and and install
 COPY ./requirements.txt /opt/
